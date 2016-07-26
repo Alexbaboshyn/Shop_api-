@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  has_many :purchases, dependent: :destroy
+
   include PgSearch
 
   pg_search_scope :search,

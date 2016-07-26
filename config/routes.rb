@@ -1,11 +1,48 @@
 Rails.application.routes.draw do
   namespace :api do
+
     resources :products, only: [:index, :show]
 
-    resource :user, only: [:create]
+    resource :user, only: [:create, :update] do
+      resource :balance, only: [:create, :update]
+    end
 
     resource :session, only: [:create, :destroy]
 
+    resources :purchases, only: [:index, :show, :create, :update, :destroy] do
+      collection do
+        post 'drop'
+      end
+    end
+    # match '/purchases/drop' => 'purchases#destroy', via: :post
+
+    resources :orders, only: [:index, :show, :create, :update] do
+      resource :payment, only: [:create]
+    end
+
+    resources :gift_certificates, only: [:index, :show, :create, :destroy]
+
+    resource :gift_certificates do
+      resource :generate, only: [:create]
+    end
+    #   collection do
+    #     post 'generate'
+    #   end
+    # end
+
+
+    # match '/profile/balance' => 'users#update', via: :patch
+
+    # resource :profile do
+    #   member do
+    #     patch 'balance'
+    #   end
+    # end
+
+
+
+    # match '/gift_certificates/generate' => 'gift_certificates#create', via: :post
+# match '/orders/:id/payment' => 'payment#create', via: :post
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
