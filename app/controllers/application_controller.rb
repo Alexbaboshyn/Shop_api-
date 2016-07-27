@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  include Pundit
+
   protect_from_forgery with: :exception
 
   helper_method :resource, :collection
@@ -19,6 +21,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordInvalid, ActiveModel::StrictValidationFailed  do
     render :errors, status: :unprocessable_entity
+  end
+
+  rescue_from Pundit::NotAuthorizedError do
+    head :forbidden
   end
 
 
