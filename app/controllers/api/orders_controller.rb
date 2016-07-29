@@ -3,8 +3,6 @@ class Api::OrdersController < ApplicationController
   def index
     render 'orders/index.json.erb'
   end
-
-
   # def build_resource
   #   @order = @current_user.orders.new
   # end
@@ -23,10 +21,6 @@ class Api::OrdersController < ApplicationController
 
     @order = @current_user.orders.new
     @order.save!
-    # build_resource
-    #
-    # resource.save!
-
     render 'orders/index.json.erb'
   end
 

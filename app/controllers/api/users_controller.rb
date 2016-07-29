@@ -1,20 +1,19 @@
 class Api::UsersController < ApplicationController
 skip_before_action :authenticate, only: [:create]
 
-  # def update
-  #   current_user.increment(:balance, params[:user][:amount].to_i).save!
-  #   render 'create.json.erb'
-  # end
-
   private
 
   def build_resource
     @user = User.new resource_params
   end
 
+  def update
+     authorize @user
+     super
+
   def resource
       @user
-    # @user = current_user
+    @user = current_user || User.find(params[:id])
   end
 
   def resource_params
