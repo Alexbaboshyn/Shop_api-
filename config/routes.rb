@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
     resources :products, only: [:index, :show]
 
+    resources :users, only: :update
     resource :user, only: [:create, :update] do
       resource :balance, only: [:create, :update]
     end
@@ -29,6 +30,9 @@ Rails.application.routes.draw do
     #     post 'generate'
     #   end
     # end
+
+
+
 
 
     # match '/profile/balance' => 'users#update', via: :patch

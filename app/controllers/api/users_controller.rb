@@ -8,11 +8,13 @@ skip_before_action :authenticate, only: [:create]
   end
 
   def update
-     authorize @user
-     super
+    authorize @resource
+
+    super
+  end
 
   def resource
-      @user
+    # @user
     @user = current_user || User.find(params[:id])
   end
 

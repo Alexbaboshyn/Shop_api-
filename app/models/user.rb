@@ -11,11 +11,8 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }, email: true
+  validates :balance, numericality: {greater_than_or_equal_to: 0}
+  validates :bonus_points, numericality: {greater_than_or_equal_to: 0}
 
-  after_initialize :set_default_role, if: :new_record?
-
-  def set_default_role
-    self.role ||= :user
-  end
 
 end

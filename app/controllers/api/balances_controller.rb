@@ -6,7 +6,6 @@ class Api::BalancesController < ApplicationController
   end
 
 
-
   def resource
     @balance ||= Balance.new(resource_params.merge(current_user: current_user))
   end

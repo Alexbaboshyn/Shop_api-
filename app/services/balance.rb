@@ -21,7 +21,12 @@ class Balance
     user.increment(:balance, amount.to_i).save!
   end
 
+  def as_json *args
+    { amount: amount}
+  end
+
   def decorate
-    user
+    # user
+    self
   end
 end

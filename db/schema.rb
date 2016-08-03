@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20160727053732) do
     t.datetime "updated_at",                  null: false
     t.integer  "balance",         default: 0
     t.integer  "bonus_points",    default: 0
-    t.integer  "role"
+    t.integer  "role",            default: 0
   end
 
   add_foreign_key "auth_tokens", "users"
