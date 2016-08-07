@@ -3,8 +3,8 @@ class Balance
 
   attr_accessor :amount, :user
 
-  validates :amount, presence: true, numericality: {greater_than_or_equal_to: 0}
-
+  validates :amount, presence: true, numericality:
+  
   def initialize params
 
     params = params.try(:symbolize_keys) || {}
@@ -15,18 +15,19 @@ class Balance
 
   end
 
+  validate do |model|
+      model.errors.add :balance, 'balance can not be lower tan 0' unless user.balance >= 0
+  end
 
-  def update
+
+  def save!
+    user.increment(:balance, amount.to_i)
     raise ActiveModel::StrictValidationFailed unless valid?
-    user.increment(:balance, amount.to_i).save!
+    user.save!
   end
 
-  def as_json *args
-    { amount: amount}
-  end
 
   def decorate
-    # user
-    self
+    user.decorate
   end
 end
