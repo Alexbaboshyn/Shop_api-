@@ -4,19 +4,19 @@ class Balance
   attr_accessor :amount, :user
 
   validates :amount, presence: true, numericality:
-  
+
   def initialize params
 
     params = params.try(:symbolize_keys) || {}
 
     @amount = params[:amount]
 
-    @user = params[:current_user]
+    @user = User.find_by!(id: params[:user_id])
 
   end
 
   validate do |model|
-      model.errors.add :balance, 'balance can not be lower tan 0' unless user.balance >= 0
+    model.errors.add :balance, 'balance can not be lower tan 0' unless user.balance >= 0
   end
 
 

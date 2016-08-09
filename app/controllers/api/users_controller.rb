@@ -7,18 +7,18 @@ skip_before_action :authenticate, only: [:create]
     @user = User.new resource_params
   end
 
-  def update
-    authorize @resource
-
-    super
-  end
+  # def update
+  #   authorize @resource
+  #
+  #   super
+  # end
 
   def resource
-    # @user
-    @user = current_user || User.find(params[:id])
+    @user
+    # @user = current_user || User.find(params[:id])
   end
 
   def resource_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
 end

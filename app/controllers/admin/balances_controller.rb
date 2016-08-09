@@ -1,8 +1,8 @@
-class Api::BalancesController < ApplicationController
+class Admin::BalancesController < BaseController
 
 private
   def build_resource
-    @balance = Balance.new(resource_params.merge(current_user: current_user))
+    @balance = Balance.new(params.merge(resource_params))
   end
 
   def resource

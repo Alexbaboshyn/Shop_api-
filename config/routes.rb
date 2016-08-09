@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :users do
+      resource :balance, only: [:create]
+    end
+  end
+
   namespace :api do
 
     resources :products, only: [:index, :show]
 
-    resources :users, only: :update
-    resource :user, only: [:create, :update] do
-      resource :balance, only: [:create, :update]
-    end
+    resource :user, only: [:create, :update]
 
     resource :session, only: [:create, :destroy]
 
@@ -31,10 +34,6 @@ Rails.application.routes.draw do
     #   end
     # end
 
-
-
-
-
     # match '/profile/balance' => 'users#update', via: :patch
 
     # resource :profile do
@@ -42,7 +41,6 @@ Rails.application.routes.draw do
     #     patch 'balance'
     #   end
     # end
-
 
 
     # match '/gift_certificates/generate' => 'gift_certificates#create', via: :post

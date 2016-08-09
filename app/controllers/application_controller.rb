@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  include Pundit
+  # include Pundit
 
   protect_from_forgery with: :exception
 
@@ -23,9 +23,9 @@ class ApplicationController < ActionController::Base
     render :errors, status: :unprocessable_entity
   end
 
-  rescue_from Pundit::NotAuthorizedError do
-    head :forbidden
-  end
+  # rescue_from Pundit::NotAuthorizedError do
+  #   head :forbidden
+  # end
 
 
   def new
