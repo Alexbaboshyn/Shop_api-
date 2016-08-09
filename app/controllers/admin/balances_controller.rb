@@ -1,15 +1,14 @@
 class Admin::BalancesController < BaseController
 
 private
+
   def build_resource
-    @balance = Balance.new(params.merge(resource_params))
+    @balance = Balance.new params
   end
+
 
   def resource
     @balance
   end
 
-  def resource_params
-    params.require(:balance).permit(:amount)
-  end
 end

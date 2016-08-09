@@ -23,4 +23,8 @@ class PurchaseHandler
     purchase.save
     purchase.destroy unless purchase.quantity > 0
   end
+
+  # def decorate
+  #   self
+  # end
 end

@@ -13,7 +13,7 @@ class Api::PurchasesController < ApplicationController
   end
 
 
-  def drop
+  def destroy
     PurchaseHandler.new(resource_params.merge(user_id: current_user.id)).reduce
 
     render 'purchases/index.json.erb'
@@ -24,6 +24,17 @@ class Api::PurchasesController < ApplicationController
     @purchase  = PurchaseHandler.new(resource_params.merge(user_id: current_user.id)).build
   end
 
+
+  def collection
+    @purchases ||= current_user.purchases.unordered.page(params[:page]).per(5)
+  enddef create
+
+    super
+
+    render 'purchases/index.json.erb'
+  end
+
+
   def resource
     @purchase
   end
@@ -32,9 +43,7 @@ class Api::PurchasesController < ApplicationController
     params.require(:purchase).permit(:product_id, :quantity)
   end
 
-  def collection
-    @purchases ||= current_user.purchases.unordered.page(params[:page]).per(5)
-  end
+
 
   # def create
   #  @purchase = current_user.purchases.find_or_create_by(product_id: params["purchase"]["product_id"]).increment(:quantity, params["purchase"]["quantity"].to_i)

@@ -13,11 +13,8 @@ Rails.application.routes.draw do
 
     resource :session, only: [:create, :destroy]
 
-    resources :purchases, only: [:index, :show, :create, :update, :destroy] do
-      collection do
-        post 'drop'
-      end
-    end
+    resources :purchases, only: [:index, :show, :create]
+    resource :purchase, only: [:show, :create, :update, :destroy]
     # match '/purchases/drop' => 'purchases#destroy', via: :post
 
     resources :orders, only: [:index, :show, :create, :update] do
